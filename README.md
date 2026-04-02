@@ -28,8 +28,7 @@ playwright-csharp-framework/
 ├── .github/
 │   └── workflows/
 │       └── playwright-tests.yml ← GitHub Actions CI/CD
-├── dev.runsettings              ← Dev environment config
-├── staging.runsettings          ← Staging environment config
+├
 ├── prod.runsettings             ← Production environment config
 ├── allureConfig.json            ← Allure report config
 └── PlaywrightFramework.csproj   ← Project file with all NuGet packages
