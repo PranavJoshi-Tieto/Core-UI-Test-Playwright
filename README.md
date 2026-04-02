@@ -190,13 +190,13 @@ public class DashboardPage : BasePage
 
 ## ➕ Adding New Tests
 
-1. Create `src/Tests/YourFeatureTests.cs` extending `BaseTest`
+1. Create `src/Tests/YourTestFileName.cs` extending `BaseTest`
 2. Initialize your page objects in `[SetUp]`
 3. Write test methods with `[Test]` and Allure attributes
 
 ```csharp
 [TestFixture]
-[AllureSuite("Your Feature")]
+[AllureSuite("Module")]
 public class YourTests : BaseTest
 {
     private YourPage _yourPage = null!;
