@@ -28,8 +28,7 @@ playwright-csharp-framework/
 ├── .github/
 │   └── workflows/
 │       └── playwright-tests.yml ← GitHub Actions CI/CD
-├── dev.runsettings              ← Dev environment config
-├── staging.runsettings          ← Staging environment config
+├
 ├── prod.runsettings             ← Production environment config
 ├── allureConfig.json            ← Allure report config
 └── PlaywrightFramework.csproj   ← Project file with all NuGet packages
@@ -215,23 +214,6 @@ public class YourTests : BaseTest
 }
 ```
 
----
-
-## 🚀 CI/CD — GitHub Actions
-
-The workflow runs automatically on:
-- Push to `main` or `develop`
-- Pull requests
-- Manual trigger (choose environment + browser)
-
-The pipeline:
-1. Builds the project
-2. Installs Playwright browsers
-3. Runs tests in **parallel across Chrome + Firefox**
-4. Uploads screenshots on failure
-5. Generates and publishes Allure report to GitHub Pages
-
----
 
 ## 🛠️ Tech Stack
 
