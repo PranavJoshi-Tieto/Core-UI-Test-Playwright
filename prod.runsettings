@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+
+  <NUnit>
+    <NumberOfTestWorkers>3</NumberOfTestWorkers>
+    <Timeout>180000</Timeout>
+  </NUnit>
+
+  <TestRunParameters>
+    <Parameter name="ENV" value="Automation" />
+    <Parameter name="BaseUrl" value="https://mas-aut-publicnorlrg.dev.360online.com/" />
+    <Parameter name="Browser" value="chrome" />
+	<Parameter name="Incognito" value="true" />
+    <Parameter name="Headless" value="false" />
+    <Parameter name="SlowMo" value="0" />
+    <Parameter name="Timeout" value="60000" />
+    <Parameter name="RetryCount" value="3" />
+    <Parameter name="ScreenshotOnFailure" value="false" />
+    <Parameter name="VideoOnFailure" value="false" />
+    <Parameter name="ViewportWidth" value="1920" />
+    <Parameter name="ViewportHeight" value="1080" />
+    <Parameter name="StartMaximized" value="true" />
+    
+  </TestRunParameters>
+
+  <LoggerRunSettings>
+    <Loggers>
+      <Logger friendlyName="console" enabled="true">
+        <Configuration>
+          <Verbosity>normal</Verbosity>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="trx" enabled="true">
+        <Configuration>
+          <LogFileName>prod-results.trx</LogFileName>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </LoggerRunSettings>
+
+</RunSettings>

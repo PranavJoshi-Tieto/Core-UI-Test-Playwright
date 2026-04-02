@@ -1,0 +1,103 @@
+# Build outputs
+bin/
+obj/
+*.user
+
+# Test results
+allure-results/
+allure-report/
+test-results/
+screenshots/
+videos/
+logs/
+playwright-report/
+*.trx
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.suo
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (never commit real credentials)
+*.env
+secrets.json
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Visual Studio
+.vs/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+
+
+## ---------- Visual Studio & .NET ----------
+## Build outputs
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+## Roslyn and temporary files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.cache
+*.opendb
+*.db
+*.log
+
+## ---------- Playwright Specific ----------
+## Playwright test results (Traces, Videos, Screenshots)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+## Screenshots or videos created by your BaseTest
+screenshots/
+videos/
+traces/
+
+## ---------- Tools & Packages ----------
+## NuGet Packages
+packages/
+*.nuget.props
+*.nuget.targets
+
+## ---------- Environment & Secrets ----------
+## Local environment settings (don't push your passwords!)
+appsettings.Development.json
+appsettings.Local.json
+*.env
+*.pem
+*.pfx
+
+## ---------- OS Specific ----------
+.DS_Store
+Thumbs.db

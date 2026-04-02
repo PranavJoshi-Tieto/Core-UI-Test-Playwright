@@ -1,0 +1,6 @@
+{
+  "allure": {
+    "directory": "allure-results",
+    "title": "Playwright C# NUnit Test Report"
+  }
+}

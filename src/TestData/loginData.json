@@ -1,0 +1,42 @@
+{
+  "validUsers": [
+    {
+      "username": "valid_user@yourapp.com",
+      "password": "ValidPassword123!",
+      "role": "admin",
+      "description": "Standard admin user"
+    },
+    {
+      "username": "test_user@yourapp.com",
+      "password": "TestPassword123!",
+      "role": "user",
+      "description": "Standard regular user"
+    }
+  ],
+  "invalidUsers": [
+    {
+      "username": "wrong_user@yourapp.com",
+      "password": "WrongPassword",
+      "expectedError": "Invalid username or password",
+      "description": "Wrong credentials"
+    },
+    {
+      "username": "",
+      "password": "",
+      "expectedError": "Username is required",
+      "description": "Empty credentials"
+    },
+    {
+      "username": "valid_user@yourapp.com",
+      "password": "",
+      "expectedError": "Password is required",
+      "description": "Missing password"
+    },
+    {
+      "username": "",
+      "password": "ValidPassword123!",
+      "expectedError": "Username is required",
+      "description": "Missing username"
+    }
+  ]
+}

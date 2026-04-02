@@ -1,0 +1,39 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+strategy:
+  parallel: 3
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build solution'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Smoke Tests'
+  inputs:
+    command: 'test'
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --settings prod.runsettings --filter "Category=Case|Category=Document|Category=Mimir"'
+    publishTestResults: true
