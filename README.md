@@ -175,14 +175,14 @@ Screenshots are automatically captured when a test fails and:
 4. Use in your test class
 
 ```csharp
-public class DashboardPage : BasePage
+public class Homepage : BasePage
 {
-    private const string WelcomeHeading = "h1.welcome";
+    private const string HomepageHeading = "h1.Homepage";
 
-    public DashboardPage(IPage page, string baseUrl) : base(page, baseUrl) { }
+    public HomePage(IPage page, string baseUrl) : base(page, baseUrl) { }
 
     public async Task<string> GetWelcomeTextAsync()
-        => await GetTextAsync(WelcomeHeading);
+        => await GetTextAsync(HomepageHeading);
 }
 ```
 
