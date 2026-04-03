@@ -190,7 +190,7 @@ public class Homepage : BasePage
 
 ## ➕ Adding New Tests
 
-1. Create `src/Tests/YourTestName.cs` extending `BaseTest`
+1. Create `src/Tests/YourTestFileName.cs` extending `BaseTest`
 2. Initialize your page objects in `[SetUp]`
 3. Write test methods with `[Test]` and Allure attributes
 

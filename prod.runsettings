@@ -8,7 +8,10 @@
 
   <TestRunParameters>
     <Parameter name="ENV" value="Automation" />
-    <Parameter name="BaseUrl" value="https://mas-aut-publicnorlrg.dev.360online.com/" />
+	  <Parameter name="BaseUrl_NOR" value="https://mas-aut-publicnorlrg.dev.360online.com/" />
+	  <Parameter name="BaseUrl_FIN" value="https://mas-aut-publicfin.dev.360online.com/" />
+	  <Parameter name="BaseUrl_DAN" value="https://mas-aut-publicdan.dev.360online.com/" />
+	  <Parameter name="BaseUrl_FFUI" value="https://mas-aut-publicnorlrg1.dev.360online.com/" />
     <Parameter name="Browser" value="chrome" />
 	<Parameter name="Incognito" value="true" />
     <Parameter name="Headless" value="false" />

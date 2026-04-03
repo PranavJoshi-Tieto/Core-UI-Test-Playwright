@@ -62,7 +62,14 @@ namespace PlaywrightFramework.Utils
             TestContext.Parameters["CloudBoardHandlerUserName"] ?? "bs1@test.p360o.com";
         public static string CloudBoardHandlerPassword =>
             TestContext.Parameters["CloudBoardHandlerPassword"] ?? "Eaple2021";
-
+        public static string BaseUrl_NOR =>
+            TestContext.Parameters["BaseUrl_NOR"] ?? "https://mas-aut-publicnorlrg.dev.360online.com/";
+        public static string BaseUrl_FIN =>
+            TestContext.Parameters["BaseUrl_FIN"] ?? "https://mas-aut-publicfin.dev.360online.com/";
+        public static string BaseUrl_DAN =>
+            TestContext.Parameters["BaseUrl_DAN"] ?? "https://mas-aut-publicdan.dev.360online.com/";
+        public static string BaseUrl_FFUI =>
+            TestContext.Parameters["BaseUrl_FFUI"] ?? "https://mas-aut-publicnorlrg1.dev.360online.com/";
 
         //public static string GetEnvUrl(string envKey)
         //{

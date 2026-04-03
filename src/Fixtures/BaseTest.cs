@@ -21,7 +21,7 @@ namespace PlaywrightFramework.Fixtures
         protected IBrowserContext Context { get; private set; } = null!;
         protected IPage Page { get; private set; } = null!;
 
-        protected string BaseUrl => TestSettings.BaseUrl;
+        protected string BaseUrl { get; set; }
         protected string TestName => TestContext.CurrentContext.Test.Name;
 
         [SetUp]

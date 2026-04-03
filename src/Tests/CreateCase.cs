@@ -15,6 +15,7 @@ namespace PlaywrightFramework.Tests
         [SetUp]
         public async Task LoginFirst()
         {
+            BaseUrl = TestSettings.BaseUrl_NOR;
             await LoginHelper.LoginToApplicationAsync(Page, BaseUrl);
         }
    
@@ -34,8 +35,8 @@ namespace PlaywrightFramework.Tests
         [Test]
         [Category("Case")]
         public async Task CreatecaseFromMainMenu()
-        {
-             // Step 1: Login as Registrar and create a case
+        {          
+            // Step 1: Login as Registrar and create a case
             await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.CaseHandler);
             var masterpagepom = new MasterPagePOM(Page, BaseUrl);
             // Click on Main Menu button
