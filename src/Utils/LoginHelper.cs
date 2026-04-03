@@ -122,10 +122,7 @@ namespace PlaywrightFramework.Utils
 
         public static async Task LogoutAsync(IPage page)
         {
-            // Switch to parent frame or default contect to ensure we are in the right context for logout
-
-           
-
+                     
             Logger.Info("🔓 Logging out...");
 
             // Wait for page to be ready
