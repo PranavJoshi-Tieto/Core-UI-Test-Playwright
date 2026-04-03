@@ -32,7 +32,7 @@ namespace PlaywrightFramework.Tests
                 try
                 {
                     BaseUrl = url;
-                    await LoginHelper.LoginToApplicationAsync(Page, url);
+                    await LoginHelper.LoginToApplicationAsync(Page, url ,UserRole.Registrar);
 
                     var mimirPOM = new MimirPOM(Page, url);
 
@@ -46,12 +46,14 @@ namespace PlaywrightFramework.Tests
                     TestContext.WriteLine("Entered question 'How to create a Case?' and pressed Enter");
 
                     TestContext.WriteLine($"Mimir AI Assistant interaction completed for {url}");
+                
                 }
                 catch (Exception ex)
                 {
                     TestContext.WriteLine($"[FAIL] Test failed for {url}: {ex}");
                     // Optionally: continue; // (not needed, loop continues by default)
                 }
+                await LoginHelper.LogoutAsync(Page);
             }
         }
 

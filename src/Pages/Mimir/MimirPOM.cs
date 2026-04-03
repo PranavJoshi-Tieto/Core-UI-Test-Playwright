@@ -68,6 +68,9 @@ namespace PlaywrightFramework.src.Pages.Mimir
             Assert.IsTrue(isAnswerVisible, "Mimir answer is not visible");
             TestContext.WriteLine("Verified Mimir answer is displayed");
 
+            // refresh the page to clear the mimir answer
+            await Page.ReloadAsync();
+
         }
 
         public async Task ClearChatHistory(string question)

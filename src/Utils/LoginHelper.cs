@@ -62,6 +62,8 @@ namespace PlaywrightFramework.Utils
                     await page.Locator("//input[@value='Yes']").ClickAsync();
                     await page.WaitForTimeoutAsync(4000);
 
+                    // wait until #header_SiteLogo is visible and click to go to homepage
+                    await page.Locator("#header_SiteLogo").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 10000 });
                     Logger.Info("CLicking on P360 icon to go Homepage");
                     await page.Locator("#header_SiteLogo").ClickAsync();
                     await page.WaitForTimeoutAsync(3000);
@@ -95,10 +97,19 @@ namespace PlaywrightFramework.Utils
                     Logger.Info("🚀 Clicking Sign in button...");
                     await page.Locator("//input[@value='Sign in']").ClickAsync();
 
-                    await page.WaitForTimeoutAsync(5000);
-                    await page.GotoAsync($"{baseUrl}");
-                    Logger.Info("✅ Login completed via useAnotherAccount path");
+                    Logger.Info("✅ Clicking Yes on Stay Signed In...");
+                    await page.Locator("//input[@value='Yes']").ClickAsync();
+                    await page.WaitForTimeoutAsync(4000);
                    
+                   // await page.GotoAsync($"{baseUrl}");
+                    Logger.Info("✅ Login completed via useAnotherAccount path");
+
+                    // wait until #header_SiteLogo is visible and click to go to homepage
+                    await page.Locator("#header_SiteLogo").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 10000 });
+                    Logger.Info("CLicking on P360 icon to go Homepage");
+                    await page.Locator("#header_SiteLogo").ClickAsync();
+                    await page.WaitForTimeoutAsync(3000);
+
                 }
 
                 Logger.Info("🔐 Auto-login completed ✅");
@@ -111,6 +122,10 @@ namespace PlaywrightFramework.Utils
 
         public static async Task LogoutAsync(IPage page)
         {
+            // Switch to parent frame or default contect to ensure we are in the right context for logout
+
+           
+
             Logger.Info("🔓 Logging out...");
 
             // Wait for page to be ready
@@ -119,7 +134,8 @@ namespace PlaywrightFramework.Utils
 
             // Click user avatar/profile icon
             Logger.Info("👤 Clicking user avatar...");
-            var avatarLocator = page.Locator(".fui-Avatar__initials");
+            //var avatarLocator = page.Locator(".fui-Avatar__initials");
+            var avatarLocator = page.Locator(".fui-Avatar__initials").First;
             var userInfoLocator = page.Locator("//div[@class='si-user-info']/div/span[1]");
 
             if (await avatarLocator.IsVisibleAsync())
