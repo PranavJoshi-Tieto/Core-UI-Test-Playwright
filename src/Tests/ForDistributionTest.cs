@@ -13,7 +13,7 @@ namespace PlaywrightFramework.Tests
         [SetUp]
         public async Task LoginFirst()
         {
-            await LoginHelper.LoginToApplicationAsync(Page, TestSettings.BaseUrl_NOR,UserRole.Registrar);
+            await LoginHelper.LoginToApplicationAsync(Page, TestSettings.BaseUrl_NOR, UserRole.Registrar);
         }
 
         [Test]
@@ -23,7 +23,22 @@ namespace PlaywrightFramework.Tests
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
 
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
-          
+
+        }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task SignOffDocumentAndAddSignOffRemark()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnDocumentsTab();
+
+            //Click on Sign off button
+            await forDistributionPOM.ClickOnSignOffButtonAndAddNote("AP");
+
+
         }
     }
 }
