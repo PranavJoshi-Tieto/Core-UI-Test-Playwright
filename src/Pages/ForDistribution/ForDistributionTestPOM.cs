@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using PlaywrightFramework.Pages;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,13 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
         private const string SignOffCodeDropdown = "div[id*='PlaceHolderMain_MainView_WriteOffCodeComboControl_div']";
         private const string SignOffDocumentIframe = "iframe[src*='/locator/DMS/Dialog/WriteOffSingleDocumentDialog']";
         private const string OKButtonText = "text=OK";
+        private const string DistributeButtonText = "text=Distribute";
+        private const string DistributeDocumentIframe = "iframe[src*='/locator/DMS/Dialog']";
+        private const string ResponsibleTextbox = "//input[@placeholder='Enter name for responsible unit or person.']";
+        private const string BookmarkButtonText = "//button[@title=\"Bookmark\"]";     
+        private const string BookmarkSuccessPopup = "[role='dialog']";
+        private const string BookmarkSuccessMessage = "text=Items bookmarked successfully";
+        private const string BookmarkOKButton = "button:has-text('OK')";
 
 
         // Actions
@@ -73,20 +81,21 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             }
         }
 
-        public async Task ClickOnDocumentsTab()
+        public async Task ClickOnTab(string tabName)
         {
             // Click on Documents Tab
-            await Page.Locator(DocumentsTabText).WaitForAsync(new LocatorWaitForOptions
+            await Page.Locator("//span[contains(text(),'"+tabName+ "')]").WaitForAsync(new LocatorWaitForOptions
             {
                 State = WaitForSelectorState.Visible
             });
+            await Page.Locator("//span[contains(text(),'"+tabName+"')]").ClickAsync();
         }
 
         public async Task ClickOnSignOffButtonAndAddNote(string signoffcode)
         {
             // Select a first document from list index of 1 
-            
-           await Page.Locator("//*[starts-with(@class,'si-icon')]").Nth(2).ClickAsync();
+
+            await Page.Locator("//*[starts-with(@class,'si-icon')]").Nth(2).ClickAsync();
 
             // Click on Sign off button
             await ClickAsync(SignOffButtonText, "Sign-off button");
@@ -97,7 +106,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             await signOffIframe.Locator(SignOffCodeDropdown).ClickAsync();
 
             TestContext.WriteLine("⚠️ Sign-off code dropdown is clicked.");
-          
+
             await signOffIframe.Locator(SignOffCodeDropdown).Locator("input").PressSequentiallyAsync(signoffcode, new() { Delay = 100 });
             // Press Enter to select the sign off code
             await signOffIframe.Locator(SignOffCodeDropdown).Locator("input").PressAsync("Enter");
@@ -106,14 +115,81 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             await signOffIframe.Locator("td[id*='PlaceHolderMain_MainView_YellowNoteTextBoxControl_inputCell']").ClickAsync();
             // Type a remark for sign off in textarea
             var SignoffTextRemark = Page.Locator("td[id*='PlaceHolderMain_MainView_YellowNoteTextBoxControl_inputCell']");
-            await signOffIframe.Locator(SignoffTextRemark).PressSequentiallyAsync("This document is signed off for testing purpose.", new() { Delay = 100 });       
+            await signOffIframe.Locator(SignoffTextRemark).PressSequentiallyAsync("This document is signed off for testing purpose.", new() { Delay = 100 });
             TestContext.WriteLine("⚠️ Remark is added for sign off in textarea.");
             // Click on OK button to complete the sign off action
             await signOffIframe.Locator(OKButtonText).ClickAsync();
             TestContext.WriteLine("⚠️ OK button is clicked to complete the sign off action.");
             await Page.MainFrame.WaitForLoadStateAsync(LoadState.NetworkIdle);
-            
+
             TestContext.WriteLine("✅ Document is signed off successfully.");
         }
+
+        public async Task SelectItemFromList()
+        {
+            // Select a first document from list index of 1 
+            await Page.Locator("//*[starts-with(@class,'si-icon')]").Nth(2).ClickAsync();
+            TestContext.WriteLine("Document is selected from the list");
+        }
+
+        public async Task<string> GetDocumentTitle()
+        {
+            // There are list of documents in document tab, get the title of first document from list index of 2
+            // Document has a href link ='/locator/DMS/Document/Details/Simplified/'
+            var documentTitle = await Page.Locator("a[href*='/locator/DMS/Document/Details/Simplified/']").Nth(1).InnerTextAsync();
+            return documentTitle;
+        }
+
+        public async Task ClickOnTabButton(string buttonName)
+        {
+            if (buttonName.Equals("Bookmark"))
+            {
+                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                await ClickAsync(BookmarkButtonText, "Bookmark button");
+                TestContext.WriteLine("Clicked on Bookmark Button");
+                return;
+            }
+            // wait until the button is visible and click on it
+            await Page.Locator($"//span[text()='{buttonName}']").WaitForAsync(new LocatorWaitForOptions
+            {
+                State = WaitForSelectorState.Visible
+            });
+            var SelectTab = Page.Locator("//span[text()='" + buttonName + "']");
+            await SelectTab.ClickAsync();
+            TestContext.WriteLine("Clicked on Distribute Button");
+        }
+
+        public async Task AddMandatoryDetailsInDistribute()
+        {
+            var DistributeIframe = Page.FrameLocator(DistributeDocumentIframe).First;
+            var responsibleField = DistributeIframe.Locator(ResponsibleTextbox);
+           
+            await responsibleField.ClickAsync();
+            await responsibleField.FillAsync("%Ch1");
+            await responsibleField.PressAsync("Enter");
+
+            // Wait for the frame to be in NetworkIdle state (ensures dropdown processed the selection)
+            await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            // Now click OK button
+            var okButton = DistributeIframe.Locator(OKButtonText);
+            await okButton.ClickAsync();
+            TestContext.WriteLine("Mandatory details are added in distribute document popup and clicked on OK button");
+
+            // Wait for the iframe to close/disappear after clicking OK
+            await Page.Locator(DistributeDocumentIframe).WaitForAsync(new LocatorWaitForOptions
+            {
+                State = WaitForSelectorState.Detached,
+                Timeout = 10000 // 10 seconds timeout
+            });
+
+            TestContext.WriteLine("✅ Distribute iframe closed successfully");
+            // Switch back to main page and wait for network idle
+            await Page.MainFrame.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            await Task.Delay(4000); 
+        }
+
+      
+
     }
-    }
+}
