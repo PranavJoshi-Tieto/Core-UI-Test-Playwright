@@ -9,15 +9,26 @@ namespace PlaywrightFramework.Utils
         CaseHandler,
         Manager,
         BoardHandler,
-        Admin
+        Admin,
+        // Add 10 new user roles for parallel testing
+        User1,
+        User2,
+        User3,
+        User4,
+        User5,
+        User6,
+        User7,
+        User8,
+        User9,
+        User10
     }
 
     public static class LoginHelper
     {
-        public static async Task LoginToApplicationAsync(IPage page, string baseUrl, UserRole role = UserRole.CaseHandler)
+        // ========== OVERLOAD 1: Login with custom username/password ==========
+        public static async Task LoginToApplicationAsync(IPage page, string baseUrl, string username, string password)
         {
-            var (username, password) = GetCredentials(role);
-            Logger.Info($"🔐 Auto-login starting as {role}...");
+            Logger.Info($"🔐 Auto-login starting with user: {username}...");
 
             try
             {
@@ -27,7 +38,6 @@ namespace PlaywrightFramework.Utils
                 // Wait for login page to load
                 Logger.Info("⏳ Waiting for login page to load...");
                 await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-
 
                 var signInButtonLocator = page.Locator("//a[@id='cantAccessAccount']//preceding::input[2]");
                 var useAnotherAccountLocator = page.Locator("#otherTileText");
@@ -64,13 +74,9 @@ namespace PlaywrightFramework.Utils
 
                     // wait until #header_SiteLogo is visible and click to go to homepage
                     await page.Locator("#header_SiteLogo").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 10000 });
-                    Logger.Info("CLicking on P360 icon to go Homepage");
+                    Logger.Info("Clicking on P360 icon to go Homepage");
                     await page.Locator("#header_SiteLogo").ClickAsync();
                     await page.WaitForTimeoutAsync(3000);
-
-                    //Logger.Info("🔙 Clicking 'take me back to 360'...");
-                    //await page.Locator("button:has-text('take me back to 360')").ClickAsync();
-                   // await page.WaitForTimeoutAsync(3000);
 
                     Logger.Info("✅ Login completed via signInButton path");
                 }
@@ -100,32 +106,34 @@ namespace PlaywrightFramework.Utils
                     Logger.Info("✅ Clicking Yes on Stay Signed In...");
                     await page.Locator("//input[@value='Yes']").ClickAsync();
                     await page.WaitForTimeoutAsync(4000);
-                   
-                   // await page.GotoAsync($"{baseUrl}");
+
                     Logger.Info("✅ Login completed via useAnotherAccount path");
 
                     // wait until #header_SiteLogo is visible and click to go to homepage
                     await page.Locator("#header_SiteLogo").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 10000 });
-                    Logger.Info("CLicking on P360 icon to go Homepage");
+                    Logger.Info("Clicking on P360 icon to go Homepage");
                     await page.Locator("#header_SiteLogo").ClickAsync();
                     await page.WaitForTimeoutAsync(3000);
-
                 }
 
                 Logger.Info("🔐 Auto-login completed ✅");
             }
             catch (Exception ex)
             {
-                Logger.Info("ℹ️ Application has been already logged in");
+                Logger.Info($"⚠️ Login exception: {ex.Message}");
             }
+        }
+
+        // ========== OVERLOAD 2: Login with UserRole enum ==========
+        public static async Task LoginToApplicationAsync(IPage page, string baseUrl, UserRole role = UserRole.CaseHandler)
+        {
+            var (username, password) = GetCredentials(role);
+            Logger.Info($"🔐 Auto-login starting as {role}...");
+            await LoginToApplicationAsync(page, baseUrl, username, password);
         }
 
         public static async Task LogoutAsync(IPage page)
         {
-            // Switch to parent frame or default contect to ensure we are in the right context for logout
-
-           
-
             Logger.Info("🔓 Logging out...");
 
             // Wait for page to be ready
@@ -134,7 +142,6 @@ namespace PlaywrightFramework.Utils
 
             // Click user avatar/profile icon
             Logger.Info("👤 Clicking user avatar...");
-            //var avatarLocator = page.Locator(".fui-Avatar__initials");
             var avatarLocator = page.Locator(".fui-Avatar__initials").First;
             var userInfoLocator = page.Locator("//div[@class='si-user-info']/div/span[1]");
 
@@ -188,6 +195,19 @@ namespace PlaywrightFramework.Utils
             UserRole.Manager => (TestSettings.CloudManagerUserName, TestSettings.CloudManagerPassword),
             UserRole.BoardHandler => (TestSettings.CloudBoardHandlerUserName, TestSettings.CloudBoardHandlerPassword),
             UserRole.Admin => (TestSettings.CloudAdminUserName, TestSettings.CloudAdminPassword),
+
+            // Add 10 new user mappings
+            UserRole.User1 => (TestSettings.CloudUser1UserName, TestSettings.CloudUser1Password),
+            UserRole.User2 => (TestSettings.CloudUser2UserName, TestSettings.CloudUser2Password),
+            UserRole.User3 => (TestSettings.CloudUser3UserName, TestSettings.CloudUser3Password),
+            UserRole.User4 => (TestSettings.CloudUser4UserName, TestSettings.CloudUser4Password),
+            UserRole.User5 => (TestSettings.CloudUser5UserName, TestSettings.CloudUser5Password),
+            UserRole.User6 => (TestSettings.CloudUser6UserName, TestSettings.CloudUser6Password),
+            UserRole.User7 => (TestSettings.CloudUser7UserName, TestSettings.CloudUser7Password),
+            UserRole.User8 => (TestSettings.CloudUser8UserName, TestSettings.CloudUser8Password),
+            UserRole.User9 => (TestSettings.CloudUser9UserName, TestSettings.CloudUser9Password),
+            UserRole.User10 => (TestSettings.CloudUser10UserName, TestSettings.CloudUser10Password),
+
             _ => (TestSettings.CloudRegistrarUserName, TestSettings.CloudRegistrarPassword)
         };
     }

@@ -23,7 +23,29 @@
     <Parameter name="ViewportWidth" value="1920" />
     <Parameter name="ViewportHeight" value="1080" />
     <Parameter name="StartMaximized" value="true" />
-    
+
+
+	  <Parameter name="CloudUser1UserName" value="testuser1@test.p360o.com" />
+	  <Parameter name="CloudUser1Password" value="TestPass1!" />
+	  <Parameter name="CloudUser2UserName" value="testuser2@test.p360o.com" />
+	  <Parameter name="CloudUser2Password" value="TestPass2!" />
+	  <Parameter name="CloudUser3UserName" value="testuser3@test.p360o.com" />
+	  <Parameter name="CloudUser3Password" value="TestPass3!" />
+	  <Parameter name="CloudUser4UserName" value="testuser4@test.p360o.com" />
+	  <Parameter name="CloudUser4Password" value="TestPass4!" />
+	  <Parameter name="CloudUser5UserName" value="testuser5@test.p360o.com" />
+	  <Parameter name="CloudUser5Password" value="TestPass5!" />
+	  <Parameter name="CloudUser6UserName" value="testuser6@test.p360o.com" />
+	  <Parameter name="CloudUser6Password" value="TestPass6!" />
+	  <Parameter name="CloudUser7UserName" value="testuser7@test.p360o.com" />
+	  <Parameter name="CloudUser7Password" value="TestPass7!" />
+	  <Parameter name="CloudUser8UserName" value="testuser8@test.p360o.com" />
+	  <Parameter name="CloudUser8Password" value="TestPass8!" />
+	  <Parameter name="CloudUser9UserName" value="testuser9@test.p360o.com" />
+	  <Parameter name="CloudUser9Password" value="TestPass9!" />
+	  <Parameter name="CloudUser10UserName" value="testuser10@test.p360o.com" />
+	  <Parameter name="CloudUser10Password" value="TestPass10!" />
+
   </TestRunParameters>
 
   <LoggerRunSettings>

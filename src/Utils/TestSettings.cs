@@ -62,6 +62,63 @@ namespace PlaywrightFramework.Utils
             TestContext.Parameters["CloudBoardHandlerUserName"] ?? "bs1@test.p360o.com";
         public static string CloudBoardHandlerPassword =>
             TestContext.Parameters["CloudBoardHandlerPassword"] ?? "Eaple2021";
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------//
+        // 10 Additional Test Users for Parallel Testing
+
+        public static string CloudUser1UserName =>
+            TestContext.Parameters["CloudUser1UserName"] ?? "testuser1@test.p360o.com";
+        public static string CloudUser1Password =>
+            TestContext.Parameters["CloudUser1Password"] ?? "TestPass1!";
+
+        public static string CloudUser2UserName =>
+            TestContext.Parameters["CloudUser2UserName"] ?? "testuser2@test.p360o.com";
+        public static string CloudUser2Password =>
+            TestContext.Parameters["CloudUser2Password"] ?? "TestPass2!";
+
+        public static string CloudUser3UserName =>
+            TestContext.Parameters["CloudUser3UserName"] ?? "testuser3@test.p360o.com";
+        public static string CloudUser3Password =>
+            TestContext.Parameters["CloudUser3Password"] ?? "TestPass3!";
+
+        public static string CloudUser4UserName =>
+            TestContext.Parameters["CloudUser4UserName"] ?? "testuser4@test.p360o.com";
+        public static string CloudUser4Password =>
+            TestContext.Parameters["CloudUser4Password"] ?? "TestPass4!";
+
+        public static string CloudUser5UserName =>
+            TestContext.Parameters["CloudUser5UserName"] ?? "testuser5@test.p360o.com";
+        public static string CloudUser5Password =>
+            TestContext.Parameters["CloudUser5Password"] ?? "TestPass5!";
+
+        public static string CloudUser6UserName =>
+            TestContext.Parameters["CloudUser6UserName"] ?? "testuser6@test.p360o.com";
+        public static string CloudUser6Password =>
+            TestContext.Parameters["CloudUser6Password"] ?? "TestPass6!";
+
+        public static string CloudUser7UserName =>
+            TestContext.Parameters["CloudUser7UserName"] ?? "testuser7@test.p360o.com";
+        public static string CloudUser7Password =>
+            TestContext.Parameters["CloudUser7Password"] ?? "TestPass7!";
+
+        public static string CloudUser8UserName =>
+            TestContext.Parameters["CloudUser8UserName"] ?? "testuser8@test.p360o.com";
+        public static string CloudUser8Password =>
+            TestContext.Parameters["CloudUser8Password"] ?? "TestPass8!";
+
+        public static string CloudUser9UserName =>
+            TestContext.Parameters["CloudUser9UserName"] ?? "testuser9@test.p360o.com";
+        public static string CloudUser9Password =>
+            TestContext.Parameters["CloudUser9Password"] ?? "TestPass9!";
+
+        public static string CloudUser10UserName =>
+            TestContext.Parameters["CloudUser10UserName"] ?? "testuser10@test.p360o.com";
+        public static string CloudUser10Password =>
+            TestContext.Parameters["CloudUser10Password"] ?? "TestPass10!";
+
+
+
         public static string BaseUrl_NOR =>
             TestContext.Parameters["BaseUrl_NOR"] ?? "https://mas-aut-publicnorlrg.dev.360online.com/";
         public static string BaseUrl_FIN =>

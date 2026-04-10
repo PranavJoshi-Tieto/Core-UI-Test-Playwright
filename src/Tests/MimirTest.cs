@@ -13,7 +13,8 @@ namespace PlaywrightFramework.Tests
         [SetUp]
         public async Task LoginFirst()
         {
-            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl);
+            BaseUrl = TestSettings.BaseUrl_NOR;
+            //await LoginHelper.LoginToApplicationAsync(Page, BaseUrl);
         }
 
         [Test]
@@ -101,6 +102,81 @@ namespace PlaywrightFramework.Tests
             await mimirPOM.LikeDislikeAnswer();
             TestContext.WriteLine(" Entered question 'How to create a Case?' and pressed Enter");
             TestContext.WriteLine(" Clicked on Like and Dislike button for the answer");
+            // Wait for response          
+            TestContext.WriteLine("Mimir AI Assistant interaction completed");
+        }
+
+        [Test]
+        [Category("Mimir")]
+        public async Task Mimir_User1()
+        {
+
+            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.User1);
+            var mimirPOM = new MimirPOM(Page, BaseUrl);
+
+            // Click on 360° Mimir Icon from Homepage
+            await mimirPOM.ClickMimirIcon();
+            TestContext.WriteLine(" Clicked on 360° Mimir Icon");
+
+            // Click on "Ask your questions here (do not enter sensitive data)" input box
+            await mimirPOM.ClickMimirQuestionInput();
+            TestContext.WriteLine(" Clicked on Mimir question input box");
+
+            // Send keys and press Enter
+            await mimirPOM.ClearChatHistory("How to create a Case?");
+            TestContext.WriteLine(" Entered question 'How to create a Case?' and pressed Enter");
+            TestContext.WriteLine(" Clicked on Clear chat history");
+
+            // Wait for response          
+            TestContext.WriteLine("Mimir AI Assistant interaction completed");
+        }
+
+        [Test]
+        [Category("Mimir")]
+        public async Task Mimir_User2()
+        {
+
+            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.User2);
+            var mimirPOM = new MimirPOM(Page, BaseUrl);
+
+            // Click on 360° Mimir Icon from Homepage
+            await mimirPOM.ClickMimirIcon();
+            TestContext.WriteLine(" Clicked on 360° Mimir Icon");
+
+            // Click on "Ask your questions here (do not enter sensitive data)" input box
+            await mimirPOM.ClickMimirQuestionInput();
+            TestContext.WriteLine(" Clicked on Mimir question input box");
+
+            // Send keys and press Enter
+            await mimirPOM.ClearChatHistory("How to create a Case?");
+            TestContext.WriteLine(" Entered question 'How to create a Case?' and pressed Enter");
+            TestContext.WriteLine(" Clicked on Clear chat history");
+
+            // Wait for response          
+            TestContext.WriteLine("Mimir AI Assistant interaction completed");
+        }
+
+        [Test]
+        [Category("Mimir")]
+        public async Task Mimir_User3()
+        {
+
+            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.User3);
+            var mimirPOM = new MimirPOM(Page, BaseUrl);
+
+            // Click on 360° Mimir Icon from Homepage
+            await mimirPOM.ClickMimirIcon();
+            TestContext.WriteLine(" Clicked on 360° Mimir Icon");
+
+            // Click on "Ask your questions here (do not enter sensitive data)" input box
+            await mimirPOM.ClickMimirQuestionInput();
+            TestContext.WriteLine(" Clicked on Mimir question input box");
+
+            // Send keys and press Enter
+            await mimirPOM.ClearChatHistory("How to create a Case?");
+            TestContext.WriteLine(" Entered question 'How to create a Case?' and pressed Enter");
+            TestContext.WriteLine(" Clicked on Clear chat history");
+
             // Wait for response          
             TestContext.WriteLine("Mimir AI Assistant interaction completed");
         }
