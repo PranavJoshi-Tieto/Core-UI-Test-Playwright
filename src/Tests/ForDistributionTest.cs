@@ -25,7 +25,7 @@ namespace PlaywrightFramework.Tests
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
 
         }
-
+        // ForDistribution Document Tab 
         [Test]
         [Category("ForDistribution")]
         public async Task SignOffDocumentAndAddSignOffRemark()
@@ -87,7 +87,7 @@ namespace PlaywrightFramework.Tests
             await forDistributionPOM.ClickOnTabButton("Bookmark");
                              
         }
-
+        // ForDistribution Case Tab 
         [Test]
         [Category("ForDistribution")]
         public async Task VerifyUserIsAbleToDistributeCase()
