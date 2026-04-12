@@ -28,7 +28,7 @@ namespace PlaywrightFramework.Tests
         // ForDistribution Document Tab 
         [Test]
         [Category("ForDistribution")]
-        public async Task SignOffDocumentAndAddSignOffRemark()
+        public async Task Doucument_SignOffDocumentAndAddSignOffRemark()
         {
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
@@ -41,7 +41,7 @@ namespace PlaywrightFramework.Tests
         }
         [Test]
         [Category("ForDistribution")]
-        public async Task VerifyUserIsAbleToDistributeDocument()
+        public async Task Doucument_VerifyUserIsAbleToDistributeDocument()
         {
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
@@ -60,8 +60,8 @@ namespace PlaywrightFramework.Tests
             await forDistributionPOM.ClickOnTabButton("Distribute");
 
             // Add mandatory details and click on Distribute button in popup
-            await forDistributionPOM.AddMandatoryDetailsInDistribute();
-          
+            await forDistributionPOM.AddMandatoryDetailsInDistribute(null);
+
             // Get document title After distribution
             var documentTitleAfterDistribution = await forDistributionPOM.GetDocumentTitle();
             TestContext.WriteLine($"Document selected for distribution: {documentTitleAfterDistribution}");
@@ -72,7 +72,7 @@ namespace PlaywrightFramework.Tests
 
         [Test]
         [Category("ForDistribution")]
-        public async Task VerifyuserIsAbleToBookMarkDocument()
+        public async Task Doucument_VerifyuserIsAbleToBookMarkDocument()
         {
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
@@ -85,12 +85,29 @@ namespace PlaywrightFramework.Tests
 
             // Click on Distribute Button
             await forDistributionPOM.ClickOnTabButton("Bookmark");
-                             
+
         }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Doucument_VerifyUserIsAbleToShareDocument()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Documents");
+            // Select Document from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Share");
+            // Add mandatory details and click on Share button in popup
+            await forDistributionPOM.AddMandatoryDetailsInShare(ConstantValues.ResponsibleCH1);
+        }
+
         // ForDistribution Case Tab 
         [Test]
         [Category("ForDistribution")]
-        public async Task VerifyUserIsAbleToDistributeCase()
+        public async Task Case_VerifyUserIsAbleToDistributeCase()
         {
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
@@ -101,7 +118,85 @@ namespace PlaywrightFramework.Tests
             // Click on Distribute Button
             await forDistributionPOM.ClickOnTabButton("Distribute");
             // Add mandatory details and click on Distribute button in popup
-            await forDistributionPOM.AddMandatoryDetailsInDistribute();
+            await forDistributionPOM.AddMandatoryDetailsInDistribute("Tasks");
+        }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Case_VerifyUserIsAbleToBookMarkCase()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Cases");
+            // Select Case from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Bookmark");
+        }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Case_VerifyUserIsAbleToShareCase()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Case");
+            // Select Document from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Share");
+            // Add mandatory details and click on Share button in popup
+            await forDistributionPOM.AddMandatoryDetailsInShare(ConstantValues.ResponsibleCH1);
+        }
+
+        // ForDistribution Task Tab 
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Tasks_VerifyUserIsAbleToDistributeTask()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Tasks");
+            // Select Case from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Distribute");
+            // Add mandatory details and click on Distribute button in popup
+            await forDistributionPOM.AddMandatoryDetailsInDistribute("Tasks");
+        }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Tasks_VerifyUserIsAbleToBookMarkTask()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Tasks");
+            // Select Case from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Bookmark");
+        }
+
+        [Test]
+        [Category("ForDistribution")]
+        public async Task Tasks_VerifyUserIsAbleToShareTask()
+        {
+            var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
+            await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
+            //Click on Documents Tab
+            await forDistributionPOM.ClickOnTab("Tasks");
+            // Select Document from the list
+            await forDistributionPOM.SelectItemFromList();
+            // Click on Distribute Button
+            await forDistributionPOM.ClickOnTabButton("Share");
+            // Add mandatory details and click on Share button in popup
+            await forDistributionPOM.AddMandatoryDetailsInShare(ConstantValues.ResponsibleCH1);
         }
     }
 }
