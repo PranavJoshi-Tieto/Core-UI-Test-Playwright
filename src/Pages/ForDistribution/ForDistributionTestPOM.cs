@@ -20,14 +20,20 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
         private const string SignOffButtonText = "text=Sign-off";
         private const string SignOffCodeDropdown = "div[id*='PlaceHolderMain_MainView_WriteOffCodeComboControl_div']";
         private const string SignOffDocumentIframe = "iframe[src*='/locator/DMS/Dialog/WriteOffSingleDocumentDialog']";
+        private const string ShareIframe = "iframe[src*='/locator/Common/Dialog/ShareWith']";
         private const string OKButtonText = "text=OK";
         private const string DistributeButtonText = "text=Distribute";
         private const string DistributeDocumentIframe = "iframe[src*='/locator/DMS/Dialog']";
+        private const string DistributionForTaksIframeReminder= "iframe[src*='/locator/CRM/Activity/Edit']";
         private const string ResponsibleTextbox = "//input[@placeholder='Enter name for responsible unit or person.']";
         private const string BookmarkButtonText = "//button[@title=\"Bookmark\"]";     
         private const string BookmarkSuccessPopup = "[role='dialog']";
         private const string BookmarkSuccessMessage = "text=Items bookmarked successfully";
         private const string BookmarkOKButton = "button:has-text('OK')";
+        private const string SaveButton= "text=Save";
+        private const string ShareWithAddContactTextbox = "//input[@name='ctl00$PlaceHolderMain$MainView$ToContactQuickSearchControl_DISPLAY']";
+
+
 
 
         // Actions
@@ -127,6 +133,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
 
         public async Task SelectItemFromList()
         {
+            await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
             // Select a first document from list index of 1 
             await Page.Locator("//*[starts-with(@class,'si-icon')]").Nth(2).ClickAsync();
             TestContext.WriteLine("Document is selected from the list");
@@ -142,11 +149,34 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
 
         public async Task ClickOnTabButton(string buttonName)
         {
+            await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
             if (buttonName.Equals("Bookmark"))
             {
                 await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                 await ClickAsync(BookmarkButtonText, "Bookmark button");
                 TestContext.WriteLine("Clicked on Bookmark Button");
+                return;
+            }
+            if (buttonName.Equals("Distribute"))
+            {
+                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                // wait until the button is visible and click on it
+                await Page.Locator($"//span[text()='{buttonName}']").WaitForAsync(new LocatorWaitForOptions
+                {
+                    State = WaitForSelectorState.Visible
+                });
+                var SelectTab1 = Page.Locator("//span[text()='" + buttonName + "']");
+                await SelectTab1.ClickAsync();
+                return;
+            }
+            if (buttonName.Equals("Share"))
+            {
+                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                await Page.Locator("//button[@aria-label='Share']").WaitForAsync(new LocatorWaitForOptions
+                {
+                    State = WaitForSelectorState.Visible
+                });
+                await Page.Locator("//button[@aria-label='Share']").ClickAsync();
                 return;
             }
             // wait until the button is visible and click on it
@@ -159,8 +189,24 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             TestContext.WriteLine("Clicked on Distribute Button");
         }
 
-        public async Task AddMandatoryDetailsInDistribute()
+        public async Task AddMandatoryDetailsInDistribute(string tabName)
         {
+            
+            if (tabName.Equals("Tasks") && !await Page.Locator(DistributionForTaksIframeReminder).IsVisibleAsync())
+            {
+                // If DistributeDocumentIframe is displayed then go inside Iframe
+                await Page.Locator(DistributionForTaksIframeReminder).WaitForAsync(new LocatorWaitForOptions
+                {
+                    State = WaitForSelectorState.Visible,
+                    Timeout = 10000 // 10 seconds timeout
+                });
+                var SelectReminder = Page.FrameLocator(DistributionForTaksIframeReminder).First.Locator("//label[text()='No reminder']");
+                await SelectReminder.ClickAsync();
+                var SaveButtonClick = Page.FrameLocator(DistributionForTaksIframeReminder).First.Locator(SaveButton);
+                await SaveButtonClick.ClickAsync();
+                return;
+            }
+
             var DistributeIframe = Page.FrameLocator(DistributeDocumentIframe).First;
             var responsibleField = DistributeIframe.Locator(ResponsibleTextbox);
            
@@ -187,9 +233,40 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             // Switch back to main page and wait for network idle
             await Page.MainFrame.WaitForLoadStateAsync(LoadState.NetworkIdle);
             await Task.Delay(4000); 
+
         }
 
-      
+        public async Task AddMandatoryDetailsInShare(string contactPerson)
+        {
+            // Navigate to Share document iframe
+            var shareIframe = Page.FrameLocator(ShareIframe).First;
+        // Click on Add contact textbox and add contact 
+            var addContactTextbox = shareIframe.Locator(ShareWithAddContactTextbox);
+            await addContactTextbox.ClickAsync();
+            await addContactTextbox.FillAsync(contactPerson);
+            await addContactTextbox.PressAsync("Enter");
+            TestContext.WriteLine("Contact is added in Share document popup");
+            // Wait for the frame to be in NetworkIdle state (ensures dropdown processed the selection)
+            await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            // Now click OK button
+            var okButton = shareIframe.Locator(OKButtonText);
+            await okButton.ClickAsync();
+            TestContext.WriteLine("Clicked on OK button in Share document popup");
+            // Wait for the iframe to close/disappear after clicking OK
+            await Page.Locator(ShareIframe).WaitForAsync(new LocatorWaitForOptions
+            {
+                State = WaitForSelectorState.Detached,
+                Timeout = 10000 // 10 seconds timeout
+            });
+            TestContext.WriteLine("✅ Share iframe closed successfully");
+             // Switch back to main page and wait for network idle
+             await Page.MainFrame.WaitForLoadStateAsync(LoadState.NetworkIdle);
+             await Task.Delay(4000);
+
+        }
+
+
+
 
     }
 }
