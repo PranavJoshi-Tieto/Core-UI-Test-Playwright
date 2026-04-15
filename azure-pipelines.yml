@@ -35,5 +35,6 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --settings prod.runsettings --filter "Category=Case|Category=Document|Category=Mimir"'
+ # Add the text after the "--" to pass variables to Playwright
+    arguments: '--configuration $(buildConfiguration) --settings prod.runsettings --filter "Category=Case|Category=Document|Category=Mimir" -- Playwright.ShardIndex=$(System.JobPosition) Playwright.ShardTotal=$(System.TotalJobs)'
     publishTestResults: true
