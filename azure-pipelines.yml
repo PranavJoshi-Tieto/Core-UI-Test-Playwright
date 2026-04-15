@@ -34,6 +34,6 @@ steps:
   displayName: 'Run Smoke Tests'
   inputs:
     command: 'test'
-    projects: '**/*Tests.csproj'
+    projects: '**/*PlaywrightFramework.csproj'
     arguments: '--configuration $(buildConfiguration) --settings prod.runsettings --filter "Category=Case|Category=Document|Category=Mimir"'
     publishTestResults: true
