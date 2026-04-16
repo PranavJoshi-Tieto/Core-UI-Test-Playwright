@@ -1,14 +1,17 @@
 {
   "servers": {
     "github": {
-      "url": "https://api.githubcopilot.com/mcp/"
-    }
-  },
-  "mcpServers": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ]
+    },
     "playwright": {
       "command": "npx",
       "args": [
-        "@playwright/mcp@latest"
+        "-y",
+        "@playwright/mcp"
       ]
     }
   }
