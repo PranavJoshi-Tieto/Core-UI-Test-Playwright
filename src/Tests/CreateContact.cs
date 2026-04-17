@@ -12,7 +12,7 @@ namespace PlaywrightFramework.Tests
         [SetUp]
         public async Task LoginFirst()
         {
-            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl);
+            await LoginHelper.LoginToApplicationAsync(Page, TestSettings.BaseUrl_NOR,UserRole.CaseHandler);
         }
         // create GUID diffrent all the time for case title with prefix "AI agent case"
         string caseTitle = "AI agent case " + System.Guid.NewGuid().ToString();

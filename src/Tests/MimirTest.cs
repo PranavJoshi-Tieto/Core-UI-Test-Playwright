@@ -13,7 +13,7 @@ namespace PlaywrightFramework.Tests
         [SetUp]
         public async Task LoginFirst()
         {
-            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl);
+            await LoginHelper.LoginToApplicationAsync(Page, TestSettings.BaseUrl_NOR, UserRole.Registrar);
         }
 
         [Test]
