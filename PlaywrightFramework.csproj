@@ -41,4 +41,16 @@
     <Content Include="allureConfig.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\Tests_DAN\Case\" />
+    <Folder Include="src\Tests_DAN\Document\" />
+    <Folder Include="src\Tests_DAN\Contact\" />
+    <Folder Include="src\Tests_FIN\Case\" />
+    <Folder Include="src\Tests_FIN\Document\" />
+    <Folder Include="src\Tests_FIN\Contact\" />
+    <Folder Include="src\Tests_SWE\Case\" />
+    <Folder Include="src\Tests_SWE\Document\" />
+    <Folder Include="src\Tests_SWE\Contact\" />
+  </ItemGroup>
+
 </Project>

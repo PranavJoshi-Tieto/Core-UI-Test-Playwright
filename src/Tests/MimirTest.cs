@@ -3,6 +3,7 @@ using PlaywrightFramework.Fixtures;
 using PlaywrightFramework.Pages;
 using PlaywrightFramework.src.Pages.Mimir;
 using PlaywrightFramework.Utils;
+using SI.AutomatedUITest.src.utils;
 using System;
 
 namespace PlaywrightFramework.Tests
@@ -102,7 +103,7 @@ namespace PlaywrightFramework.Tests
             TestContext.WriteLine(" Entered question 'How to create a Case?' and pressed Enter");
             TestContext.WriteLine(" Clicked on Like and Dislike button for the answer");
             // Wait for response          
-            TestContext.WriteLine("Mimir AI Assistant interaction completed");
+            TestContext.WriteLine("Mimir AI Assistant interaction completed");        
         }
     }
 }
