@@ -120,9 +120,13 @@ namespace PlaywrightFramework.src.Pages.Case
 
         public async Task<bool> IsShowOverviewTextDisplayed()
         {
-            // Add delay to allow the overview section to load
-            await Task.Delay(2000);
             var showOverviewLocator = Page.Locator("//span[contains(text(),'Show overview')]");
+            // Wait until the element is visible
+            await Page.WaitForSelectorAsync("//span[contains(text(),'Show overview')]", new PageWaitForSelectorOptions
+            {
+                Timeout = 5000, // Optional: Timeout in milliseconds (default is 30 seconds)
+                State = WaitForSelectorState.Visible // Wait until the element is visible
+            });          
             return showOverviewLocator.IsVisibleAsync().Result;
         }
 
@@ -228,8 +232,12 @@ namespace PlaywrightFramework.src.Pages.Case
             var copyHyperlinkButton = Page.Locator(CopyHyperlinkButton);
             copyHyperlinkButton.ClickAsync().Wait();
             TestContext.WriteLine("Clicked on Copy Hyperlink button");
-
             var linkCopiedMessage = Page.Locator("text=The hyperlink is successfully copied to the clipboard");
+            await Page.WaitForSelectorAsync("text=The hyperlink is successfully copied to the clipboard", new PageWaitForSelectorOptions
+            {
+                Timeout = 5000, // Optional: Timeout in milliseconds (default is 30 seconds)
+                State = WaitForSelectorState.Visible // Wait until the element is visible
+            }); 
             return linkCopiedMessage.IsVisibleAsync().Result;
         }
 
