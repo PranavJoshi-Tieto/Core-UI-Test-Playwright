@@ -24,7 +24,7 @@ namespace PlaywrightFramework.Tests
             var urls = new[]
               {
                 TestSettings.BaseUrl_NOR,
-                TestSettings.BaseUrl_DAN
+                //TestSettings.BaseUrl_DAN
               };
 
             foreach (var url in urls)

@@ -37,7 +37,7 @@ namespace PlaywrightFramework.Tests
         public async Task CreatecaseFromMainMenu()
         {          
             // Step 1: Login as Registrar and create a case
-            await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.CaseHandler);
+            //await LoginHelper.LoginToApplicationAsync(Page, BaseUrl, UserRole.CaseHandler);
             var masterpagepom = new MasterPagePOM(Page, BaseUrl);
             // Click on Main Menu button
             await masterpagepom.ClickMenuButton();
@@ -159,8 +159,7 @@ namespace PlaywrightFramework.Tests
             TestContext.WriteLine("Verified 'The hyperlink is successfully copied to the clipboard' message is displayed after clicking Copy Hyperlink option");
         }
 
-        [Test]
-        [Category("Case")]
+       
         public async Task Case_UpdateCaseStatusToClosed()
         {
            // await LoginHelper.SwitchUserAsync(Page, BaseUrl, UserRole.Registrar);

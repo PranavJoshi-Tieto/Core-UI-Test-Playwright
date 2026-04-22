@@ -68,9 +68,37 @@ namespace PlaywrightFramework.Utils
                     await page.Locator("#header_SiteLogo").ClickAsync();
                     await page.WaitForTimeoutAsync(3000);
 
+                    // refresh the page to avoid any stale element issues and ensure we are on the homepage.
+                    var mainMenuLocator = page.Locator("button[aria-label*='Menu'], button[title*='Menu'], button:has([data-testid*='menu']), [role='button']:near([aria-label*='avatar']):visible");
+
+                    if (await mainMenuLocator.IsVisibleAsync())
+                    {
+                        Logger.Info("✅ Main menu is already visible. No need to refresh the page.");
+                    }
+                    else
+                    {
+                        int retries = 2;
+                        while (retries-- > 0)
+                        {
+                            Logger.Info("🔄 Main menu not visible. Refreshing the page...");
+                            await page.ReloadAsync();
+
+                            if (await mainMenuLocator.IsVisibleAsync())
+                            {
+                                Logger.Info("✅ Main menu is now visible.");
+                                break;
+                            }
+
+                            Logger.Info($"🔄 Retrying... Attempts left: {retries}");
+                            await Task.Delay(2000);
+                        }
+
+                        if (retries <= 0) throw new TimeoutException("Main menu not visible after multiple retries.");
+                    }
+
                     //Logger.Info("🔙 Clicking 'take me back to 360'...");
                     //await page.Locator("button:has-text('take me back to 360')").ClickAsync();
-                   // await page.WaitForTimeoutAsync(3000);
+                    // await page.WaitForTimeoutAsync(3000);
 
                     Logger.Info("✅ Login completed via signInButton path");
                 }
