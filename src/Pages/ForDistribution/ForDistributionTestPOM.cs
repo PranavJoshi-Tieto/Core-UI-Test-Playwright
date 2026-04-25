@@ -25,6 +25,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
         private const string DistributeButtonText = "text=Distribute";
         private const string DistributeDocumentIframe = "iframe[src*='/locator/DMS/Dialog']";
         private const string DistributionForTaksIframeReminder= "iframe[src*='/locator/CRM/Activity/Edit']";
+        private const string DistributionForTaksIframeReminderIFAR = "iframe[src*='/locator/CRM/Activity/Dialog/DistributePetitionDialog']";
         private const string ResponsibleTextbox = "//input[@placeholder='Enter name for responsible unit or person.']";
         private const string BookmarkButtonText = "//button[@title=\"Bookmark\"]";     
         private const string BookmarkSuccessPopup = "[role='dialog']";
@@ -191,19 +192,36 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
 
         public async Task AddMandatoryDetailsInDistribute(string tabName)
         {
-            
-            if (tabName.Equals("Tasks") && !await Page.Locator(DistributionForTaksIframeReminder).IsVisibleAsync())
+            await Task.Delay(2000);
+            if (tabName.Equals("Tasks") &&
+             (await Page.Locator(DistributionForTaksIframeReminder).IsVisibleAsync() ||
+             await Page.Locator(DistributionForTaksIframeReminderIFAR).IsVisibleAsync()))
             {
-                // If DistributeDocumentIframe is displayed then go inside Iframe
-                await Page.Locator(DistributionForTaksIframeReminder).WaitForAsync(new LocatorWaitForOptions
+                // If either iframe is displayed, go inside the appropriate iframe
+                string visibleIframe = await Page.Locator(DistributionForTaksIframeReminder).IsVisibleAsync()
+                    ? DistributionForTaksIframeReminder
+                    : DistributionForTaksIframeReminderIFAR;
+
+                await Page.Locator(visibleIframe).WaitForAsync(new LocatorWaitForOptions
                 {
                     State = WaitForSelectorState.Visible,
                     Timeout = 10000 // 10 seconds timeout
                 });
-                var SelectReminder = Page.FrameLocator(DistributionForTaksIframeReminder).First.Locator("//label[text()='No reminder']");
-                await SelectReminder.ClickAsync();
-                var SaveButtonClick = Page.FrameLocator(DistributionForTaksIframeReminder).First.Locator(SaveButton);
-                await SaveButtonClick.ClickAsync();
+
+                if (visibleIframe == DistributionForTaksIframeReminderIFAR)
+                {
+                    var responsibleField1 = Page.FrameLocator(visibleIframe).First.Locator(ResponsibleTextbox);
+                    await responsibleField1.ClickAsync();
+                    await responsibleField1.FillAsync("%Ch1");
+                    await responsibleField1.PressAsync("Enter");
+                    var okButton1 = Page.FrameLocator(visibleIframe).First.Locator(OKButtonText);
+                    await okButton1.ClickAsync();
+                    return;
+                }
+                var selectReminder = Page.FrameLocator(visibleIframe).First.Locator("//label[text()='No reminder']");
+                await selectReminder.ClickAsync();
+                var saveButtonClick = Page.FrameLocator(visibleIframe).First.Locator(SaveButton);
+                await saveButtonClick.ClickAsync();
                 return;
             }
 
@@ -239,6 +257,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
         public async Task AddMandatoryDetailsInShare(string contactPerson)
         {
             // Navigate to Share document iframe
+            await Task.Delay(2000);
             var shareIframe = Page.FrameLocator(ShareIframe).First;
         // Click on Add contact textbox and add contact 
             var addContactTextbox = shareIframe.Locator(ShareWithAddContactTextbox);

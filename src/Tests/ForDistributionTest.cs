@@ -60,7 +60,7 @@ namespace PlaywrightFramework.Tests
             await forDistributionPOM.ClickOnTabButton("Distribute");
 
             // Add mandatory details and click on Distribute button in popup
-            await forDistributionPOM.AddMandatoryDetailsInDistribute(null);
+            await forDistributionPOM.AddMandatoryDetailsInDistribute("");
 
             // Get document title After distribution
             var documentTitleAfterDistribution = await forDistributionPOM.GetDocumentTitle();
@@ -118,7 +118,7 @@ namespace PlaywrightFramework.Tests
             // Click on Distribute Button
             await forDistributionPOM.ClickOnTabButton("Distribute");
             // Add mandatory details and click on Distribute button in popup
-            await forDistributionPOM.AddMandatoryDetailsInDistribute("Tasks");
+            await forDistributionPOM.AddMandatoryDetailsInDistribute("");
         }
 
         [Test]
