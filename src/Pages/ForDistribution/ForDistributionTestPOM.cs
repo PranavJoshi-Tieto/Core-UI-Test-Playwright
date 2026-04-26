@@ -227,7 +227,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
 
             var DistributeIframe = Page.FrameLocator(DistributeDocumentIframe).First;
             var responsibleField = DistributeIframe.Locator(ResponsibleTextbox);
-           
+
             await responsibleField.ClickAsync();
             await responsibleField.FillAsync("%Ch1");
             await responsibleField.PressAsync("Enter");
@@ -235,6 +235,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             // Wait for the frame to be in NetworkIdle state (ensures dropdown processed the selection)
             await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
+            await Task.Delay(4000);
             // Now click OK button
             var okButton = DistributeIframe.Locator(OKButtonText);
             await okButton.ClickAsync();
@@ -250,7 +251,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             TestContext.WriteLine("✅ Distribute iframe closed successfully");
             // Switch back to main page and wait for network idle
             await Page.MainFrame.WaitForLoadStateAsync(LoadState.NetworkIdle);
-            await Task.Delay(4000); 
+            await Task.Delay(4000);
 
         }
 
