@@ -142,7 +142,7 @@ namespace PlaywrightFramework.Tests
             var forDistributionPOM = new ForDistributionTestPOM(Page, BaseUrl);
             await forDistributionPOM.ClickOnForDistributionDesktopDesktop();
             //Click on Documents Tab
-            await forDistributionPOM.ClickOnTab("Case");
+            await forDistributionPOM.ClickOnTab("Cases");
             // Select Document from the list
             await forDistributionPOM.SelectItemFromList();
             // Click on Distribute Button

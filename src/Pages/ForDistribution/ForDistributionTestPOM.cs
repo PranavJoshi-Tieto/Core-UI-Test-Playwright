@@ -269,6 +269,7 @@ namespace PlaywrightFramework.src.Pages.ForDistribution
             // Wait for the frame to be in NetworkIdle state (ensures dropdown processed the selection)
             await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
             // Now click OK button
+            await Task.Delay(4000);
             var okButton = shareIframe.Locator(OKButtonText);
             await okButton.ClickAsync();
             TestContext.WriteLine("Clicked on OK button in Share document popup");
